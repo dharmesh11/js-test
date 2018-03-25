@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TABS</title>
+</head>
+<style type="text/css">
+	ul{padding: 0;}
+	.color-tabs{overflow: hidden;width: 140px;margin: 20px auto;}
+	.color-tabs li{float: left;list-style: none;margin-right: 5px;}
+	.color-tabs li.black{background-color: #333;}
+	.color-tabs li.gold{background-color: gold;}
+	.color-tabs li.blue{background-color: blue;}
+	.color-tabs li.pink{background-color: pink;}
+	.color-tabs li a{width: 30px;height: 30px;display: block;}
+	.img-display{width: 300px;margin: 0 auto;}
+	.img-display li{display: none;}
+	.img-display li.active{display: block;}
+	.img-display img{width: 100%;display: block;}
+</style>
+<body>
+	
+	<ul id="img-list" class="img-display">
+		<li class="active" id="black"><img src="images/black.jpeg"></li>
+		<li id="gold"><img src="images/gold.jpeg"></li>
+		<li id="blue"><img src="images/blue.jpeg"></li>
+		<li id="pink"><img src="images/rose-gold.jpeg"></li>
+	</ul>
+	<ul class="color-tabs">
+		<li class="black"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="black"></a></li>
+		<li class="gold"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="gold"></a></li>
+		<li class="blue"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="blue"></a></li>
+		<li class="pink"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="pink"></a></li>
+	</ul>
+	
+	<script type="text/javascript">
+		function colorchange(argument) {
+			var tagAttr = argument.getAttribute("data-attr");
+			var ul = document.getElementById('img-list');
+			var list = ul.getElementsByTagName('li');
+
+			for(var i=0;i < list.length;i++){
+				var val = list[i];
+				val.className = val.className.replace(/\bactive\b/g, "");
+				var listid = val.getAttribute("id");
+				if( listid == tagAttr){
+					val.className = 'active';
+				}
+			}
+		}
+	</script>
+</body>
+</html>
