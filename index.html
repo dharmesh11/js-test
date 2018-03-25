@@ -12,6 +12,7 @@
 	.color-tabs li.blue{background-color: blue;}
 	.color-tabs li.pink{background-color: pink;}
 	.color-tabs li a{width: 30px;height: 30px;display: block;}
+	.color-tabs li a.active{background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkFBQzRDODE3MzAyRDExRThBMDU0QjE0RDBBNjg2MDVGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkFBQzRDODE4MzAyRDExRThBMDU0QjE0RDBBNjg2MDVGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QUFDNEM4MTUzMDJEMTFFOEEwNTRCMTREMEE2ODYwNUYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QUFDNEM4MTYzMDJEMTFFOEEwNTRCMTREMEE2ODYwNUYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7GoIngAAAA8ElEQVR42mL8//8/AzUBEwOVwaAzkBFdgIVCA0ER4AXE8kD8DIg3MoAihQzMCKWDgfjnfwi4BhJjosBlvkC8AIjZoGIfITLkudAdiL//R4BbQCwIToJkGOb6HxVcB2I+mDyphnmhGXYaiEWR1SArBtkyA4qNsBgGioBfSIadBWIZdHXIHEkkxU+AWBtJzheIPyPJXwViaWy+QOaIAPFHJE0gtjwQu2CJAD5cwYIuoA11HS4AigABfOGMTRAUfo+xGIYRAcQaCMImQPyKUASQYiAIawLxbyC+gSsCsGFGAgWsKBD/gmcrYoqfQV9iAwQYAI3M2zYK+BC4AAAAAElFTkSuQmCC') no-repeat center center; }
 	.img-display{width: 300px;margin: 0 auto;}
 	.img-display li{display: none;}
 	.img-display li.active{display: block;}
@@ -25,8 +26,8 @@
 		<li id="blue"><img src="images/blue.jpeg"></li>
 		<li id="pink"><img src="images/rose-gold.jpeg"></li>
 	</ul>
-	<ul class="color-tabs">
-		<li class="black"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="black"></a></li>
+	<ul class="color-tabs" id="tabs">
+		<li class="black"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="black" class="active"></a></li>
 		<li class="gold"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="gold"></a></li>
 		<li class="blue"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="blue"></a></li>
 		<li class="pink"><a href="javascript:void(0);" onclick="colorchange(this)" data-attr="pink"></a></li>
@@ -35,15 +36,23 @@
 	<script type="text/javascript">
 		function colorchange(argument) {
 			var tagAttr = argument.getAttribute("data-attr");
+			
+			var ultab = document.getElementById('tabs');
+			var tablist = ultab.getElementsByTagName('a');
+			
 			var ul = document.getElementById('img-list');
 			var list = ul.getElementsByTagName('li');
 
 			for(var i=0;i < list.length;i++){
 				var val = list[i];
+				var tabval = tablist[i];
+				tabval.className = tabval.className.replace(/\bactive\b/g, "");
 				val.className = val.className.replace(/\bactive\b/g, "");
 				var listid = val.getAttribute("id");
 				if( listid == tagAttr){
+					//console.log(val);
 					val.className = 'active';
+					tabval.className = 'active';
 				}
 			}
 		}
